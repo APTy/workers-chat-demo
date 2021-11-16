@@ -9,7 +9,10 @@ account_id = ""
 format = "modules"
 dir = "src"
 main = "./chat.mjs"
-rules = [{type = "Data", globs = ["**/*.html"]}]
+# [works] the following line correctly serves the javascript file
+# rules = [{type = "Data", globs = ["**/*.js"]}]
+# [doesn't work] the following line does *not* serve the javascript file correctly
+rules = [{type = "Data", globs = ["**/*.html"]}, {type = "Data", globs = ["**/*.js"]}]
 
 [durable_objects]
 bindings = [

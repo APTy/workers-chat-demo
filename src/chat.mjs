@@ -55,11 +55,11 @@
 // With the introduction of modules, we're experimenting with allowing text/data blobs to be
 // uploaded and exposed as synthetic modules. In wrangler.toml we specify a rule that files ending
 // in .html should be uploaded as "Data", equivalent to content-type `application/octet-stream`.
-// So when we import it as `HTML` here, we get the HTML content as an `ArrayBuffer`. This lets us
+// So when we import it as `JS` here, we get the JS content as an `ArrayBuffer`. This lets us
 // serve our app's static asset without relying on any separate storage. (However, the space
 // available for assets served this way is very limited; larger sites should continue to use Workers
 // KV to serve assets.)
-import HTML from "chat.html";
+import JS from "foo.js";
 
 // `handleErrors()` is a little utility function that can wrap an HTTP request handler in a
 // try/catch and return errors to the client. You probably wouldn't want to use this in production
@@ -100,8 +100,8 @@ export default {
       let path = url.pathname.slice(1).split('/');
 
       if (!path[0]) {
-        // Serve our HTML at the root path.
-        return new Response(HTML, {headers: {"Content-Type": "text/html;charset=UTF-8"}});
+        // Serve our JS at the root path.
+        return new Response(JS, {headers: {"Content-Type": "text/javascript"}});
       }
 
       switch (path[0]) {
